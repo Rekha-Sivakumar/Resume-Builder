@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Resume Builder – Create & Download Your Resume Online</title>
+<meta name="description" content="Build a professional resume for free. Fill in your details, choose a template, preview it, and download it as a PDF in minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="site-head-inner">
+    <span class="brand"><span class="brand-mark">R.</span>Resume Builder</span>
+    <nav class="steps" id="progress-steps">
+      <span class="step is-active" data-step="1"><span class="step-num">01</span>Template</span>
+      <span class="step-divider">—</span>
+      <span class="step" data-step="2"><span class="step-num">02</span>Details</span>
+      <span class="step-divider">—</span>
+      <span class="step" data-step="3"><span class="step-num">03</span>Preview &amp; Download</span>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- STEP 1: CHOOSE TEMPLATE -->
+  <section id="step-choose-template" class="app-step is-active">
+
+    <div class="hero">
+      <p class="eyebrow">DRAFT → PRINT</p>
+      <h1>Pick a look for your resume.</h1>
+      <p class="hero-sub">Start with a template — you can still switch it later. Once you've picked one, we'll ask for your details.</p>
+    </div>
+
+    <div class="template-grid-lg" id="template-gallery-select"></div>
+
+  </section>
+
+  <!-- STEP 2: FORM -->
+  <section id="step-form" class="app-step">
+
+    <div class="hero">
+      <p class="eyebrow">DRAFT → PRINT</p>
+      <h1>Now, your details.</h1>
+      <p class="hero-sub">Fill this in once. Your resume will render live in the <strong id="selected-template-name">Modern</strong> template — you can change it anytime before downloading.</p>
+      <button type="button" id="back-to-templates" class="btn-ghost btn-ghost-sm">← Choose a different template</button>
+    </div>
+
+    <form id="resume-form" novalidate>
+      <p class="form-note">Fields marked <b class="req">*</b> are required.</p>
+
+      <section class="card">
+        <h2><span class="sec-mark">01</span>Personal Information<b class="req">*</b></h2>
+        <div class="personal-information-entry field-grid">
+          <div class="field">
+            <label for="name">Full name</label>
+            <input type="text" id="name" placeholder="Jordan Lee" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="jordan@email.com" required>
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" placeholder="+1 555 010 2020" required>
+          </div>
+          <div class="field field-wide field-photo">
+            <label for="photo">Profile photo (optional)</label>
+            <input type="file" id="photo" accept="image/*">
+            <p class="field-hint">Shown on templates designed for a photo. JPG or PNG, works best square.</p>
+            <div class="photo-preview-wrap" id="photo-preview-wrap" hidden>
+              <img id="photo-preview" alt="Photo preview">
+              <button type="button" id="photo-remove-btn" class="photo-remove-btn">Remove photo</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2><span class="sec-mark">02</span>Additional Details</h2>
+        <p class="form-note">Optional — address, date of birth, nationality, or anything else you'd like on your resume.</p>
+        <div id="details-container">
+          <div class="detail-entry entry-card">
+            <p class="entry-label">Detail 01</p>
+            <div class="field-grid">
+              <div class="field"><label>Label</label><input type="text" placeholder="e.g. Address" value="Address"></div>
+              <div class="field field-wide"><label>Value</label><input type="text" placeholder="221B Baker Street, London"></div>
+            </div>
+            <button type="button" class="remove-btn">Remove</button>
+          </div>
+          <div class="detail-entry entry-card">
+            <p class="entry-label">Detail 02</p>
+            <div class="field-grid">
+              <div class="field"><label>Label</label><input type="text" placeholder="e.g. Date of Birth" value="Date of Birth"></div>
+              <div class="field field-wide"><label>Value</label><input type="text" placeholder="12 Jan 2000"></div>
+            </div>
+            <button type="button" class="remove-btn">Remove</button>
+          </div>
+        </div>
+        <button type="button" id="add-detail-btn" class="btn-add">+ Add detail</button>
+      </section>
+
+      <section class="card">
+        <h2><span class="sec-mark">03</span>Summary<b class="req">*</b></h2>
+        <div class="objective-entry">
+          <div class="field">
+            <label for="objective">A few lines about you</label>
+            <textarea id="objective" rows="3" placeholder="Frontend developer with 3 years of experience building fast, accessible web apps." required></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2><span class="sec-mark">04</span>Education<b class="req">*</b></h2>
+        <div id="education-container">
+          <div class="education-entry entry-card">
+            <p class="entry-label">Entry 01</p>
+            <div class="field-grid">
+              <div class="field">
+                <label>Qualification</label>
+                <input type="text" placeholder="e.g. B.Tech – CSE / SSC / Diploma" required>
+              </div>
+              <div class="field">
+                <label>School / College name</label>
+                <input type="text" placeholder="Institution name" required>
+              </div>
+              <div class="field">
+                <label>Year</label>
+                <input type="text" placeholder="Year of passing" required>
+              </div>
+              <div class="field">
+                <label>Percentage / GPA</label>
+                <input type="text" placeholder="e.g. 8.7 CGPA" required>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" id="add-education-btn" class="btn-add">+ Add education</button>
+      </section>
+
+      <section class="card">
+        <h2><span class="sec-mark">05</span>Skills<b class="req">*</b></h2>
+        <div id="skills-container">
+          <div class="skills-entry field-grid">
+            <div class="field">
+              <label for="tech">Technical skills</label>
+              <input type="text" id="tech" placeholder="C, Java, HTML, React" required>
+            </div>
+            <div class="field">
+              <label for="nontech">Non-technical skills</label>
+              <input type="text" id="nontech" placeholder="Communication, leadership" required>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2><span class="sec-mark">06</span>Internships</h2>
+        <div id="internship-container">
+          <div class="internship-entry entry-card">
+            <p class="entry-label">Entry 01</p>
+            <div class="field-grid">
+              <div class="field"><label>Domain</label><input type="text" placeholder="AI/ML, Full Stack, Web Development"></div>
+              <div class="field"><label>Company name</label><input type="text" placeholder="e.g. Google"></div>
+              <div class="field"><label>Duration</label><input type="text" placeholder="Jan 2023 – Jul 2023"></div>
+              <div class="field field-wide"><label>About</label><input type="text" placeholder="More details about the internship"></div>
+            </div>
+          </div>
+        </div>
+        <button type="button" id="add-internship-btn" class="btn-add">+ Add internship</button>
+      </section>
+
+      <section class="card">
+        <h2><span class="sec-mark">07</span>Projects</h2>
+        <div id="project-container">
+          <div class="project-entry entry-card">
+            <p class="entry-label">Entry 01</p>
+            <div class="field-grid">
+              <div class="field"><label>Project title</label><input type="text" placeholder="e.g. Tic Tac Toe"></div>
+              <div class="field"><label>Demo link (optional)</label><input type="url" placeholder="https://your-project-demo.com"></div>
+              <div class="field field-wide"><label>About</label><input type="text" placeholder="More details about the project"></div>
+            </div>
+          </div>
+        </div>
+        <button type="button" id="add-project-btn" class="btn-add">+ Add project</button>
+      </section>
+
+      <section class="card">
+        <h2><span class="sec-mark">08</span>Experience</h2>
+        <div id="experience-container">
+          <div class="experience-entry entry-card">
+            <p class="entry-label">Entry 01</p>
+            <div class="field-grid">
+              <div class="field"><label>Job role</label><input type="text" placeholder="Software Developer"></div>
+              <div class="field"><label>Company name</label><input type="text" placeholder="e.g. Google"></div>
+              <div class="field"><label>Duration</label><input type="text" placeholder="2021 – 2023"></div>
+              <div class="field field-wide"><label>About</label><input type="text" placeholder="Work, challenges, experience"></div>
+            </div>
+          </div>
+        </div>
+        <button type="button" id="add-experience-btn" class="btn-add">+ Add experience</button>
+      </section>
+
+      <section class="card">
+        <h2><span class="sec-mark">09</span>Certification</h2>
+        <div id="certification-container">
+          <div class="certification-entry entry-card">
+            <p class="entry-label">Entry 01</p>
+            <div class="field-grid">
+              <div class="field"><label>Title</label><input type="text" placeholder="Certified in ___"></div>
+              <div class="field"><label>Company name</label><input type="text" placeholder="Certified by"></div>
+              <div class="field"><label>Date</label><input type="text" placeholder="dd-mm-yyyy"></div>
+              <div class="field field-wide"><label>About</label><input type="text" placeholder="Your experience with it"></div>
+            </div>
+          </div>
+        </div>
+        <button type="button" id="add-certification-btn" class="btn-add">+ Add certificate</button>
+      </section>
+
+      <section class="card">
+        <h2><span class="sec-mark">10</span>Languages</h2>
+        <div id="language-container">
+          <div class="language-entry">
+            <div class="field">
+              <label for="lang">Languages known</label>
+              <input type="text" id="lang" placeholder="English, Hindi">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2><span class="sec-mark">11</span>Hobbies</h2>
+        <div id="hobbies-container">
+          <div class="hobbies-entry">
+            <div class="field">
+              <label for="hobby">Your hobbies</label>
+              <input type="text" id="hobby" placeholder="Chess, sketching, hiking">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2><span class="sec-mark">12</span>Social &amp; Profile Links</h2>
+        <p class="form-note">Name each link yourself — LinkedIn, GitHub, LeetCode, Render, portfolio, anything — then paste its URL.</p>
+        <div id="media-container">
+          <div class="media-entry entry-card">
+            <p class="entry-label">Link 01</p>
+            <div class="field-grid">
+              <div class="field"><label>Platform / label</label><input type="text" placeholder="e.g. LinkedIn"></div>
+              <div class="field field-wide"><label>URL</label><input type="text" placeholder="linkedin.com/in/you"></div>
+            </div>
+            <button type="button" class="remove-btn">Remove</button>
+          </div>
+        </div>
+        <button type="button" id="add-media-btn" class="btn-add">+ Add link</button>
+      </section>
+
+      <section class="card">
+        <h2><span class="sec-mark">13</span>QR Code</h2>
+        <div class="qrcode-entry field-grid">
+          <div class="field field-wide">
+            <label for="qrlink">Link to turn into a QR code (optional)</label>
+            <input type="url" id="qrlink" placeholder="https://your-portfolio.com or linkedin.com/in/you">
+            <p class="field-hint">We'll generate a scannable QR code from this link and place it on your resume — handy for a portfolio, LinkedIn, or personal site.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary generate-resume">Preview my resume →</button>
+        <button type="reset" class="btn-ghost reset">Clear form</button>
+      </div>
+
+    </form>
+  </section>
+
+  <!-- STEP 3: PREVIEW + DOWNLOAD -->
+  <section id="step-preview" class="app-step">
+
+    <div class="hero hero-compact">
+      <p class="eyebrow">03 — PREVIEW &amp; DOWNLOAD</p>
+      <h1>Looking good?</h1>
+      <p class="hero-sub">Switch templates anytime — the preview updates instantly. When it looks right, download it as a PDF, an editable Word document, or an image.</p>
+    </div>
+
+    <div class="template-layout">
+      <div class="template-gallery" id="template-gallery-mini"></div>
+
+      <div class="preview-panel">
+        <div class="preview-toolbar">
+          <button type="button" id="back-to-form" class="btn-ghost">← Back to edit</button>
+          <div class="download-dropdown" id="download-dropdown">
+            <button type="button" id="download-toggle-btn" class="btn-primary">Download ↓</button>
+            <div class="download-menu" id="download-menu" hidden>
+              <button type="button" class="download-option" data-format="pdf">Download as PDF</button>
+              <button type="button" class="download-option" data-format="docx" title="Opens as a fully editable document in Microsoft Word">Download as Word (.docx)</button>
+              <button type="button" class="download-option" data-format="doc" title="Legacy Word format, for older versions of Office">Download as Word (.doc)</button>
+              <button type="button" class="download-option" data-format="jpg">Download as Image (.jpg)</button>
+            </div>
+          </div>
+        </div>
+        <div class="preview-paper-wrap">
+          <div class="preview-paper" id="resume-preview"></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <p>Built for you — free, no account needed.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.js"></script>
+<script src="script1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
+</body>
+</html>
